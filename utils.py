@@ -20,14 +20,14 @@ def log(message, component='CORE'):
 def get_mongodb():
 	try:
 		db = None
-		log(environ.get("MONGO_HOST"))
+		# log(environ.get("MONGO_HOST"))
 		uri_mdb_dev = environ.get("MONGO_HOST")
 		_dev = pymongo.MongoClient(uri_mdb_dev)
 		db = _dev[environ.get("SCHEMA")]
 		
 	except Exception as e:
 		log("Error: " + str(e.args), 'utils')
-	log(str(db.list_collection_names()))
+	# log(str(db.list_collection_names()))
 	return db
 
 
