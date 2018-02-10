@@ -10,4 +10,4 @@ def verify():
 
 
 if __name__ == '__main__':
-	app.run(port=environ.get('PORT'), debug=False)
+	app.run(debug=False)
