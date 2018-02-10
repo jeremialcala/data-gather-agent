@@ -9,5 +9,5 @@ def verify():
 	return "Hello World"
 
 
-if '__name__' == '__main__':
-	app.run(environ['PORT'])
+if __name__ == '__main__':
+	app.run(port=environ.get('PORT'), debug=False)
