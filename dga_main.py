@@ -16,11 +16,11 @@ if __name__ == '__main__':
 		if resp.status_code == 200:
 			for sym in resp.response:
 				resp.response[sym]['dttimestamp'] = now
-				log(sym + " percentChange: " + str(resp.response[sym]['percentChange']), ME)
+				# log(sym + " percentChange: " + str(resp.response[sym]['percentChange']), ME)
 				if sym not in db_collections:
 					log("Creating Collection " + sym, ME)
 					db.create_collection(sym)
-				log("Saved data for " + sym + " " + str(db[sym].insert(resp.response[sym])), ME)
+				# log("Saved data for " + sym + " " + str(db[sym].insert(resp.response[sym])), ME)
 			log("Prices submitted", ME)
 		time.sleep(3)
 	else:

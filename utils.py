@@ -23,7 +23,7 @@ def get_mongodb():
 		log(environ.get("MONGO_HOST"))
 		uri_mdb_dev = environ.get("MONGO_HOST")
 		_dev = pymongo.MongoClient(uri_mdb_dev)
-		db = _dev['minertrader']
+		db = _dev['minertrader_dev']
 		
 	except Exception as e:
 		log("Error: " + str(e.args), 'utils')
