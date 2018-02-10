@@ -20,7 +20,7 @@ if __name__ == '__main__':
 				if sym not in db_collections:
 					log("Creating Collection " + sym, ME)
 					db.create_collection(sym)
-				# log("Saved data for " + sym + " " + str(db[sym].insert(resp.response[sym])), ME)
+				log("Saved data for " + sym + " " + str(db[sym].insert(resp.response[sym])), ME)
 			log("Prices submitted", ME)
 		time.sleep(3)
 	else:
