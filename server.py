@@ -45,7 +45,7 @@ def session_adm():
 def get_prices():
 	# obtain 24 hs of USDT_BTC
 	data = {"rc": 0, "msg": "Process OK"}
-	price_range = get_price_range(datetime.utcnow()-timedelta(days=0.5), 'USDT_BTC')
+	price_range = get_price_range(datetime.utcnow()-timedelta(days=0.2), 'USDT_BTC')
 	price_data = []
 	price_label = []
 	for price in price_range:
