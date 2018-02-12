@@ -3,3 +3,5 @@ flask
 requests
 werkzeug
 wtforms
+Flask-Login
+flask_socketio

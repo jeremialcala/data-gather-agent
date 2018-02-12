@@ -8,56 +8,82 @@
         <script src="static/js/js-utils.js"></script>
 
          <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
         <!--link href="static/css/signin.css" rel="stylesheet"-->
-        <link href="static/css/dashboard.css" rel="stylesheet">
+        <!--link href="static/css/dashboard.css" rel="stylesheet"-->
+        <!--link href="static/css/cover.css" rel="stylesheet"-->
 
         <style>
             .input-hidden{display: none;}
+            .p-10 {
+                padding: 10px;
+            }
+            html,
+            body {
+              /*height: 100%;*/
+              background-color: #333;
+              /* background: linear-gradient(to bottom right, #2E2E2E, #424242);*/
+              color: #F2F2F2;
+              text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+              box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+            }
+            .dk-title {
+               color: #151515;
+            }
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">DGA</a>
-            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">DGA</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                  aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-item nav-link" href="#">Features</a>
+                  <a class="nav-item nav-link" href="#">Pricing</a>
+                  <a class="nav-item nav-link disabled" href="#">Disabled</a>
+                </div>
+            </div>
             <ul class="navbar-nav px-3" id="profile">
                 <li class="nav-item text-nowrap">
-                  <a class="nav-link" href="#">N/A</a>
+                    <a class="nav-link" data-toggle="modal" data-target="#myModal" href="#">Login</a>
                 </li>
             </ul>
         </nav>
 
-        <div class="container-fluid">
+         <div class="container-fluid">
              <div class="row">
-                 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                     <div class="sidebar-sticky">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">
-                                    <span data-feather="home"></span>
-                                    Dashboard
-                                    <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file"></span>
-                                    Historic Data
-                                </a>
-                            </li>
-                        </ul>
-                     </div>
-                 </nav>
+                  <div class="col-md-12">
+                      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-4 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Dashboard</h1>
+                        <p>under construction</p>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <h4 class="h4 text-center">Price change BTC(6hrs).</h4>
+                            <canvas class="my-4" id="price_btc" width="900" height="380"></canvas>
+                          </div>
+                          <div class="col-md-6">
+                              <h4 class="h4 text-center">Price change ETH(6hrs).</h4>
+                            <canvas class="my-4" id="price_eth" width="900" height="380"></canvas>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-12">
+                              <h4 class="h4 text-center">%Change(6hrs).</h4>
+                            <canvas class="my-4" id="btc_eth_pc" width="900" height="380"></canvas>
+                          </div>
+                      </div>
+
+                  </div>
              </div>
          </div>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1>
-                <p>under construction</p>
-            </div>
-            <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
-        </main>
 
         <script src="static/js/Chart.bundle.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -70,5 +96,34 @@
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
         </script>
         <input class="input-hidden" type="text" id="my-session" name="my-session">
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                       <h4 class="h3 mb-3 font-weight-normal dk-title">Please sign in</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                              <div class="col-md-8">
+                                  <label for="email" class="sr-only">Email address</label>
+                                  <input type="text" class="form-control" id="email" name="email" placeholder="Email address" required>
+                                  <label for="password" class="sr-only">Password</label>
+                                  <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="button">Sign in</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

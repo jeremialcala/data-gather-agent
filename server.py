@@ -2,30 +2,28 @@
 import os
 from os import environ
 from flask import Flask, render_template, request, session, make_response, Response, json
-from utils import log, get_session_id
+from utils import log, get_random_key
 from model.currencies import get_price_range
 from datetime import datetime, timedelta
+from flask_socketio import SocketIO, emit
+from flask_login import current_user, logout_user
 
-session_opts = {
-	'session.type': 'ext:memcached',
-	'session.url': '127.0.0.1:11211',
-	'session.data_dir': './cache',
-}
 
 app = Flask(__name__)
 app.secret_key = environ.get('APPKEY')
-SESSION_TYPE = 'redis'
-app.config.from_object(__name__)
+socket_io = SocketIO(app)
+# session.permanent = True
 
 
 @app.route('/', methods=['GET'])
-def verify():
-	if 'X-Session' not in request.headers:
-		session['X-Session'] = get_session_id()
-	session['User-agent'] = request.headers['User-Agent']
+def index():
+	# if 'X-Session' not in request.headers:
+		# session['X-Session'] = get_random_key()
+	# session['User-agent'] = request.headers['User-Agent']
+	
 	log(str(session), "SERVER")
 	resp = make_response(render_template("index.html"))
-	resp.headers["X-Session"]= session['X-Session']
+	# resp.headers["X-Session"] = session['X-Session']
 	return resp
 
 
@@ -45,14 +43,29 @@ def session_adm():
 def get_prices():
 	# obtain 24 hs of USDT_BTC
 	data = {"rc": 0, "msg": "Process OK"}
-	price_range = get_price_range(datetime.utcnow()-timedelta(hours=2), 'USDT_BTC')
-	price_data = []
-	price_label = []
-	for price in price_range:
-		price_data.append(price['last'])
-		price_label.append(price['dttimestamp'].strftime("%d-%m %H:%M:%S"))
 	
-	data['data'] = {"labels": price_label, 'dataset': price_data}
+	price_range_btc = get_price_range(datetime.utcnow()-timedelta(hours=6), None, 'USDT_BTC')
+	price_range_eth = get_price_range(datetime.utcnow() - timedelta(hours=6), None, 'USDT_ETH')
+	
+	price_btc = []
+	chang_btc = []
+	price_eth = []
+	chang_eth = []
+	
+	price_label = []
+	for price in price_range_eth:
+		price_eth.append(price['last'])
+		chang_eth.append(price['percentChange'])
+		# price_eth.append({"percentChange": price['percentChange'], "last": price['last']})
+		price_label.append(price['dttimestamp'].strftime("%H:%M"))
+		
+	for price in price_range_btc:
+		price_btc.append(price['last'])
+		chang_btc.append(price['percentChange'])
+		# price_btc.append({"percentChange": price['percentChange'], "last": price['last']})
+	
+	data['data'] = {"labels": price_label, 'datasets': [{"label": "Bitcoin", "data": {"price": price_btc, "change": chang_btc}},
+	                                                    {"label": "Ethereum", "data": {"price": price_eth, "change": chang_eth}}]}
 	
 	return Response(json.dumps(data, sort_keys=False, indent=4, separators=(',', ': ')),
 	                200, mimetype='application/json')

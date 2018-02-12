@@ -2,7 +2,7 @@
 import sys
 import pymongo
 import json
-from hashlib import blake2b
+# from hashlib import blake2b
 from datetime import datetime, time
 from os import environ
 from requests import get as _get
@@ -30,13 +30,14 @@ def get_mongodb():
 		db = None
 		uri_mdb_dev = environ.get("MONGO_HOST")
 		_dev = pymongo.MongoClient(uri_mdb_dev)
-		db = _dev[environ.get("SCHEMA")]
+		# db = _dev[environ.get("SCHEMA")]
+		db = _dev['minertrader']
 	except Exception as e:
 		log("Error: " + str(e.args), 'utils')
 	return db
 
 
-def get_random_key(size=8, only_alpha=False):
+def get_random_key(size=32, only_alpha=False):
 	key = ""
 	for x in range(0, size):
 		if only_alpha:
@@ -48,11 +49,11 @@ def get_random_key(size=8, only_alpha=False):
 	return key
 
 
-def get_session_id(key=environ['APPKEY']):
-	h = blake2b(digest_size=AUTH_SIZE, key=bytes(key, 'utf-8'))
-	h.update(bytes(get_random_key(1024, False), 'utf-8'))
-	session_id = h.hexdigest()
-	return str(session_id)
+# def get_session_id(key=environ['APPKEY']):
+	# h = blake2b(digest_size=AUTH_SIZE, key=bytes(key, 'utf-8'))
+	# h.update(bytes(get_random_key(1024, False), 'utf-8'))
+	# session_id = h.hexdigest()
+	# return str(session_id)
 
 
 # POLONIEX SIDE OF THINGS

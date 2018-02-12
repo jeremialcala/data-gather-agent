@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from utils import log, get_mongodb, get_ticker, get_session_id,get_random_key
+from utils import log, get_mongodb, get_ticker,get_random_key
 from datetime import datetime, timedelta
 import time
 from model.currencies import get_price_range
