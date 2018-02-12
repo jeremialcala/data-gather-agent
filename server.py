@@ -50,7 +50,7 @@ def get_prices():
 	price_label = []
 	for price in price_range:
 		price_data.append(price['last'])
-		price_label.append(price['dttimestamp'].strftime("%m-%d %H:%M:%S"))
+		price_label.append(price['dttimestamp'].strftime("%d-%m %H:%M:%S"))
 	
 	data['data'] = {"labels": price_label, 'dataset': price_data}
 	
