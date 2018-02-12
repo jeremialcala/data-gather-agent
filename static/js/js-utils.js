@@ -22,8 +22,8 @@ function getPrices(){
                         lineTension: 0,
                         backgroundColor: 'transparent',
                         borderColor: '#007bff',
-                        borderWidth: 4,
-                        pointBackgroundColor: '#007bff'
+                        borderWidth: 1,
+                        pointBackgroundColor: '#4ecb0f'
                      }],
                  },
                  options: {
@@ -35,7 +35,7 @@ function getPrices(){
                     }]
                     },
                     legend: {
-                    display: false,
+                    display: true,
                     }
                 }
              });
