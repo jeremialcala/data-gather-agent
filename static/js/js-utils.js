@@ -35,7 +35,8 @@ function getPrices(){
                     }]
                     },
                     legend: {
-                    display: true,
+                    display: false,
+                    labelString: "USD-BTC",
                     }
                 }
              });
