@@ -1,3 +1,5 @@
+bson
+gunicorn
 pymongo==3.6.0
 flask
 requests

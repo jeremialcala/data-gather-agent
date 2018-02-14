@@ -21,7 +21,7 @@ def get_timestamp(component='CORE'):
 
 
 def log(message, component='CORE'):
-	print('[' + component + '] ' + message)
+	print('[' + component + '] ' + str(message))
 	sys.stdout.flush()
 
 
@@ -30,8 +30,8 @@ def get_mongodb():
 		db = None
 		uri_mdb_dev = environ.get("MONGO_HOST")
 		_dev = pymongo.MongoClient(uri_mdb_dev)
-		# db = _dev[environ.get("SCHEMA")]
-		db = _dev['minertrader']
+		db = _dev[environ.get("SCHEMA")]
+		# db = _dev['minertrader']
 	except Exception as e:
 		log("Error: " + str(e.args), 'utils')
 	return db

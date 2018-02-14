@@ -1,11 +1,10 @@
 $(document).ready(function() {
-    var req = new XMLHttpRequest();
-    req.open('GET', document.location, false);
-    req.send(null);
-    var sessionid = req.getResponseHeader("X-Session");
     getPrices();
-    document.getElementById("my-session").value = sessionid;
 });
+
+/*setInterval(function() {
+   getPrices();
+}, 60000);*/
 
 function getPrices(){
     var xhttp = new XMLHttpRequest();

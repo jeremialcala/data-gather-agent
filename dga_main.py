@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-from utils import log, get_mongodb, get_ticker,get_random_key
-from datetime import datetime, timedelta
-import time
-from model.currencies import get_price_range
+from datetime import datetime
+from utils import log, get_mongodb, get_ticker
 
 ME = "DGA"
 if __name__ == '__main__':
@@ -22,6 +20,6 @@ if __name__ == '__main__':
 					db.create_collection(sym)
 				log("Saved data for " + sym + " " + str(db[sym].insert(resp.response[sym])), ME)
 			log("Prices submitted", ME)
-		time.sleep(3)
+		# time.sleep(3)
 	else:
 		log("something is up", ME)

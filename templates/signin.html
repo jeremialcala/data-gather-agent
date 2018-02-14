@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+        <title>Data Gather Agent</title>
+        <!-- JAVASCRIPT -->
+        <script src="static/js/jquery-3.3.1.min.js"></script>
+        <script src="static/js/js-utils.js"></script>
+
+         <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
+        <link href="static/css/signin.css" rel="stylesheet">
+        <!--link href="static/css/dashboard.css" rel="stylesheet"-->
+        <!--link href="static/css/cover.css" rel="stylesheet"-->
+
+        <style>
+            .input-hidden{display: none;}
+            .p-10 {
+                padding: 10px;
+            }
+            html,
+            body {
+              /*height: 100%;*/
+              background-color: #333;
+              /* background: linear-gradient(to bottom right, #2E2E2E, #424242);*/
+              color: #F2F2F2;
+              text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+              box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+            }
+            .dk-title {
+               color: #151515;
+            }
+            .form-new{
+				 border-radius: 25px;
+				 background: #FFF;
+				 -webkit-box-shadow: 10px 9px 12px 0px rgba(0,0,0,0.75);
+				 -moz-box-shadow: 10px 9px 12px 0px rgba(0,0,0,0.75);
+				 box-shadow: 10px 9px 12px 0px rgba(0,0,0,0.75);
+            }
+        </style>
+	</head>
+
+	<body class="text-center">
+		<form class="form-signin border form-new" method="POST" action="/session" accept-charset="utf-8">
+			<img class="mb-4" src="static/images/minerlogo.jpg" alt="" width="82" height="72">
+			<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+			<label for="email" class="sr-only">Email address</label>
+			<!--input type="email" id="email" class="form-control" placeholder="Email address" required autofocus-->
+			<input type="text" class="form-control" id="email" name="email" placeholder="Your email will be used to contact you.">
+			<label for="password" class="sr-only">Password</label>
+			<!--input type="password" id="password" class="form-control" placeholder="Password" required-->
+			<input type="password" class="form-control" id="password" name="password" placeholder="Enter a password.">
+			<div class="checkbox mb-3">
+			<label>
+			  <input type="checkbox" value="remember-me"> Remember me
+			</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			<p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+		</form>
+
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	</body>
+</html>
