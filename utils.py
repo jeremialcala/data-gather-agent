@@ -22,7 +22,7 @@ def get_mongodb():
 		db = None
 		# log(environ.get("MONGO_HOST"))
 		uri_mdb_dev = environ.get("MONGO_HOST")
-		_dev = pymongo.MongoClient(uri_mdb_dev)
+		_dev = pymongo.MongoClient(uri_mdb_dev, replicaSet=environ.get("REPLICASET_MONGO"))
 		db = _dev[environ.get("SCHEMA")]
 		
 	except Exception as e:
