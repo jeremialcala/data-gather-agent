@@ -29,9 +29,8 @@ def get_mongodb():
 	try:
 		db = None
 		uri_mdb_dev = environ.get("MONGO_HOST")
-		_dev = pymongo.MongoClient(uri_mdb_dev)
+		_dev = pymongo.MongoClient(uri_mdb_dev, replicaSet=environ.get("REPLICASET_MONGO"))
 		db = _dev[environ.get("SCHEMA")]
-		# db = _dev['minertrader']
 	except Exception as e:
 		log("Error: " + str(e.args), 'utils')
 	return db
@@ -49,15 +48,7 @@ def get_random_key(size=32, only_alpha=False):
 	return key
 
 
-# def get_session_id(key=environ['APPKEY']):
-	# h = blake2b(digest_size=AUTH_SIZE, key=bytes(key, 'utf-8'))
-	# h.update(bytes(get_random_key(1024, False), 'utf-8'))
-	# session_id = h.hexdigest()
-	# return str(session_id)
-
-
 # POLONIEX SIDE OF THINGS
-
 def get_ticker():
 	resp = _get(environ.get('POLONIEX_URL') + environ.get('POLONIEX_PUBLIC') + 'returnTicker')
 	return Response(json.loads(resp.text), resp.status_code, mimetype='application/json')
