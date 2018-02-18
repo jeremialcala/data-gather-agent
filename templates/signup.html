@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8">
+        <title>Data Gather Agent</title>
+        <!-- JAVASCRIPT -->
+        <script src="static/js/js-utils.js"></script>
+        <script src="static/js/md5.js"></script>
+         <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
+        <link href="static/css/floating-labels.css" rel="stylesheet">
+		<style>
+            .input-hidden{display: none;}
+            .p-10 {
+                padding: 10px;
+            }
+            html,
+            body {
+              /*height: 100%;*/
+              background-color: #333;
+              /* background: linear-gradient(to bottom right, #2E2E2E, #424242);*/
+              color: #F2F2F2;
+              text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+              box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+            }
+            .dk-title {
+               color: #151515;
+            }
+            .form-signup{
+				width: 100%;
+				max-width: 800px;
+				padding: 40px;
+				margin: 0 auto;
+				border-radius: 10px;
+				background: #FFF;
+				-webkit-box-shadow: 10px 9px 12px 0px rgba(0,0,0,0.75);
+				-moz-box-shadow: 10px 9px 12px 0px rgba(0,0,0,0.75);
+				box-shadow: 10px 9px 12px 0px rgba(0,0,0,0.75);
+            }
+            .section-important{
+                border-style: solid;
+                border-radius: 10px;
+                border-width: thin;
+                padding: 10px;
+                border-color: greenyellow;
+            }
+            .div-padding-left{
+                padding-left: 25px!important;
+            }
+            .elem-padding-bottom{
+                padding-bottom: 10px;
+            }
+            .text-footer{
+            	font-size: 0.7rem !important;
+            }
+            .text-normal{
+                font-size: 1rem !important;
+                color: #42435a;
+            }
+            .text-logo{
+            	font-size: 4.5rem!important;
+            	color: #7391b1;
+            }
+            .invalid{
+                font-size: 0.8rem!important;
+                color: red;
+            }
+            .valid{
+                font-size: 0.8rem!important;
+                color: green;
+            }
+            .label-padding-left{
+                padding-left: 18px;
+            }
+        </style>
+    </head>
+    <body>
+        <form class="border form-signup" method="POST" action="/signup" accept-charset="utf-8">
+			<!--img class="mb-4" src="static/images/minerlogo.jpg" alt="" width="82" height="72"-->
+			<div class="form-row text-center mb-4">
+				<a class="h3 mb-3 text-muted">please fill out this form so we can begin.</a>
+			</div>
+            <div class="form-row section-important">
+                <div class="col-md-6">
+                    <div class="form-label-group">
+                        <input type="text" id="nid" name="nid" class="form-control" placeholder="National ID" required autofocus>
+                        <label for="nid">National ID</label>
+                    </div>
+                    <div class="input-group date form-label-group" id="datepicker_dob" >
+                        <input type="date" id="dob" name="dob" class="form-control" placeholder="Date of Birth" required autofocus>
+                        <label for="dob">Date of Birth</label>
+                    </div>
+
+                </div>
+                <div class="col-md-6 align-middle">
+                    <div class="form-label-group">
+                        <input type="text" id="full_name" name="full_name" class="form-control" placeholder="Full name" required autofocus>
+                        <label for="full_name">Full Name</label>
+                    </div>
+                    <div class="form-label-group">
+                        <input type="email" id="email" name="email" class="form-control" onfocusout="verify_email()" placeholder="Email address" required autofocus>
+                        <label for="email">Email address</label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-row section-important">
+                <div class="col-md-6 align-middle">
+                    <h5 class="text-muted text-normal">Enter your password:</h5>
+                    <div class="form-label-group">
+				        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+				        <label for="password">Password</label>
+			        </div>
+                    <div class="form-label-group">
+				        <input type="password" id="verify_password" name="verify_password" class="form-control" placeholder="Verify Password" required>
+				        <label for="verify_password">Verify Password</label>
+			        </div>
+                </div>
+                <div class="col-md-6 div-padding-left">
+                    <h5 class="text-muted text-normal">Password must contain:</h5>
+                    <li id="letter" class="invalid"><b>lowercase</b> letters</li>
+                    <li id="capital" class="invalid text-normal"><b>capital (uppercase)</b> letters</li>
+                    <li id="number" class="invalid text-normal"> Minimum <b>1 number</b></li>
+                    <li id="length" class="invalid text-normal">Minimum <b>8 characters</b></li>
+                    <li id="match" class="invalid text-normal">Password and Verification <b>MUST</b> match</li>
+                </div>
+
+            </div>
+            <br>
+            <div class="form-row">
+                <div class="form-check form-check-inline elem-padding-bottom">
+                  <input class="form-check-input" type="checkbox" id="accept_tyc" required>
+                  <label class="form-check-label text-muted" for="accept_tyc">Accept <a href="#">terms and conditions</a> for this site.</label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" id="btn_submit" name="btn_submit" type="submit" disabled>Sign up!</button>
+            </div>
+		</form>
+        <script>
+            var password = document.getElementById("password");
+            var letter  = document.getElementById("letter");
+            var capital = document.getElementById("capital");
+            var number  = document.getElementById("number");
+            var length  = document.getElementById("length");
+            var match   = document.getElementById("match");
+            var verify  = document.getElementById("verify_password");
+            var btn_submit = document.getElementById("btn_submit");
+            var accept_tyc = document.getElementById("accept_tyc");
+            var datepicker_dob = document.getElementById("datepicker_dob");
+            var email = document.getElementById("email");
+
+            function verify_email(){
+                console.log("HOLA");
+                var xhttp = new XMLHttpRequest();
+
+                var params = '{"email": "' + email.value + '"}';
+                xhttp.open("POST", "/verify", true);
+                xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xhttp.onload = function(){
+                    if(xhttp.readyState == 4 && xhttp.status == "200"){
+                        // alert("HOLA");
+                        console.log(xhttp.responseText);
+                    }
+                }
+                xhttp.send(JSON.stringify({email: email.value}));
+            }
+
+
+            password.onkeyup = function() {
+              // Validate lowercase letters
+              var lowerCaseLetters = /[a-z]/g;
+              if(password.value.match(lowerCaseLetters)) {
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+              } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+              }
+
+              // Validate capital letters
+              var upperCaseLetters = /[A-Z]/g;
+              if(password.value.match(upperCaseLetters)) {
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+              } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+              }
+
+              // Validate numbers
+              var numbers = /[0-9]/g;
+              if(password.value.match(numbers)) {
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+              } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+              }
+
+              // Validate length
+              if(password.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+              } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+              }
+            }
+
+            //Verify
+            verify.onkeyup = function(){
+                if(password.value==verify.value){
+                    match.classList.remove("invalid");
+                    match.classList.add("valid");
+                    document.getElementById("btn_submit").disabled = false;
+                    password.value = md5(password.value);
+                    verify.value = password.value
+                }else{
+                    match.classList.remove("valid");
+                    match.classList.add("invalid");
+                    document.getElementById("btn_submit").disabled = true;
+                }
+            }
+
+
+        </script>
+
+        <!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>

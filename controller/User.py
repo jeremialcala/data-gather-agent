@@ -38,7 +38,8 @@ def create_user(user_registration):
 			rollback_user(rollback)
 			log(resp['MSG'])
 			return resp
-	
+		
+		result = resp
 	except Exception as e:
 		log(e.args[0], "ERROR")
 		result = {"rc": 500, "MSG": "something went wrong! " + e.args[0]}
@@ -47,7 +48,7 @@ def create_user(user_registration):
 
 
 def verify_user(user_verification):
-	log("Starting: " + str(user_verification), "verify_user")
+	log("Starting: user_verification" + str(user_verification), "verify_user")
 	result = {"rc": 200, "MSG": "Process OK", "alt-msg": []}
 	new_email = Email("", user_verification['email'])
 	# log(new_email.to_json(), "verify_user")
@@ -63,7 +64,7 @@ def verify_user(user_verification):
 		return resp
 	
 	new_password = Password(new_email.user_id, user_verification['password'])
-	log(new_password.to_json(), "verify_user")
+	# log(new_password.to_json(), "verify_user")
 	resp = new_password.get_user_info()
 	# log(resp, "verify_user")
 	if resp['rc'] != 200:
@@ -100,7 +101,6 @@ def verify_user(user_verification):
 			result['MSG'] = "Account Locked"
 		elif new_password.fail_att + 1 is 2:
 			result['alt-msg'] = "Next fail attempt will disable your account"
-			
 		bad_result.update_element()
 	elif new_password.fail_att >= 3:
 		result['rc'] = 423
@@ -110,6 +110,5 @@ def verify_user(user_verification):
 		good_result.update_element()
 		user = User("", new_email.user_id, "", "", "", "").get_user_info()
 		result['user'] = user.to_json()
-
 	
 	return result

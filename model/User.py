@@ -32,11 +32,9 @@ def rollback_user(rollback):
 def user(id):
 	db = get_mongodb()
 	new_user = User(str(id), "", "", "", "", "", "")
-	oid = "5a834c77538a991dd0e26233"
-	log("String " + oid)
-	r_oid = ObjectId(oid)
+	r_oid = ObjectId(id)
 	cursor = db.users.find_one({"_id": r_oid})
-	log(type(cursor))
+	# log(type(cursor))
 	if type(cursor) is dict:
 		new_user.id = str(cursor['_id'])
 		new_user.user_id = cursor['user_id']
@@ -61,11 +59,12 @@ class User(UserMixin):
 		self.status_date = status_date
 		
 	def to_json(self):
-		return json.dumps(self.__dict__, sort_keys=False, indent=4, separators=(',', ': '))
+		return json.dumps(self.__dict__, sort_keys=True, indent=4, separators=(',', ': '))
 			
 	def save_user(self):
 		db = get_mongodb()
 		user_json = json.loads(self.to_json())
+		user_json.pop('id')
 		try:
 			cursor = db.users.insert_one(user_json)
 			log("User Seved: " + str(cursor.inserted_id))
@@ -87,7 +86,7 @@ class User(UserMixin):
 			self.gender = cursor['gender']
 			self.dob = cursor['dob']
 			self.status = cursor['status']
-			self.status_date  = cursor['status_date']
+			self.status_date = cursor['status_date']
 		return self
 	
 	
@@ -109,7 +108,7 @@ class Password:
 		password_json = json.loads(self.to_json())
 		try:
 			cursor = db.users_password.insert_one(password_json)
-			log("Password Seved: " + str(cursor.inserted_id))
+			log("Password saved: " + str(cursor.inserted_id))
 			result = {"rc": 200, "MSG": "User information saved!", "_id": str(cursor.inserted_id)}
 		except DuplicateKeyError as DK:
 			log(DK.args[0], "ERROR")
@@ -155,7 +154,7 @@ class Email:
 		email_json = json.loads(self.to_json())
 		try:
 			cursor = db.users_email.insert_one(email_json)
-			log("Email Seved: " + str(cursor.inserted_id))
+			log("Email saved: " + str(cursor.inserted_id))
 			result = {"rc": 200, "MSG": "User information saved!", "_id": str(cursor.inserted_id)}
 		except DuplicateKeyError as DK:
 			log(DK.args[0], "ERROR")
