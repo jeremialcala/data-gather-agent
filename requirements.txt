@@ -1,9 +1,7 @@
-bson
-gunicorn
 pymongo==3.6.0
 flask
+Flask-Login
+gunicorn
 requests
 werkzeug
 wtforms
-Flask-Login
-flask_socketio
